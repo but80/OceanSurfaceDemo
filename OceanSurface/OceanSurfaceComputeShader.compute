@@ -1,0 +1,52 @@
+﻿#pragma kernel ComputeForce
+#pragma kernel ComputePosition
+
+struct OceanParticle {
+	half3 position;
+	half velocity;
+	half force;
+	int stopped;
+};
+
+uniform half2 Tension;
+uniform half Friction;
+uniform half Mass;
+uniform half DeltaTime;
+uniform half2 Pitch;
+uniform uint2 Division;
+uniform half FadeRadius;
+uniform half FadeCurve;
+uniform uint XCount;
+uniform uint ZCount;
+
+uniform RWStructuredBuffer<OceanParticle> Particles : register(u0);
+
+[numthreads(64, 1, 1)]
+void ComputeForce(uint3 id : SV_DispatchThreadID) {
+	uint k = id.x;
+	if (0 != Particles[k].stopped) return;
+	uint j = k % XCount;
+	uint i = k / XCount;
+	if (ZCount <= i) return;
+	half h = Particles[k].position.y;
+	half2 force = half2(.0, .0);
+	if (0u < j          && Particles[k -      1].stopped == 0) force.x += Particles[k -      1].position.y - h;
+	if (j  < Division.x && Particles[k +      1].stopped == 0) force.x += Particles[k +      1].position.y - h;
+	if (0u < i          && Particles[k - XCount].stopped == 0) force.y += Particles[k - XCount].position.y - h;
+	if (i  < Division.y && Particles[k + XCount].stopped == 0) force.y += Particles[k + XCount].position.y - h;
+	force *= Tension / Pitch;
+	
+	half fade = length(Particles[k].position.xz) / FadeRadius;
+	fade = min(1.0, pow(abs(fade), FadeCurve));
+	Particles[k].force += (force.x + force.y) - lerp(Friction, 1.0, fade) * Particles[k].velocity;
+}
+
+[numthreads(64, 1, 1)]
+void ComputePosition(uint3 id : SV_DispatchThreadID) {
+	uint k = id.x;
+	if (0 != Particles[k].stopped) return;
+    Particles[k].velocity += Particles[k].force / Mass;
+    Particles[k].position += half3(.0, Particles[k].velocity * DeltaTime, .0);
+    Particles[k].force = 0;
+}
+
