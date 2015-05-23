@@ -5,8 +5,8 @@
 1. Create a new project.
 2. Select ``Menu > Assets > Import Package > Environment``.
 3. Press ``None`` button on the Import dialog, then check ``Standard Assets/Environment/Water`` to include all assets under this directory. After that, press ``Import`` button.
-4. Drag ``OceanSurface`` folder from this project and drop it into ``Assets`` in the Project tab.
-5. Open ``OceanSurface/OceanSurfaceSampleScene`` in your code editor.
+4. Import ``OceanSurface.unitypackage`` in this project.
+5. Open ``OceanSurface/OceanSurfaceSampleScene``.
 6. Edit ``Assets/Standard Assets/Environment/Water/Water4/Shaders/FXWater4Advanced`` as follows (after the line 114, with attention to comments with ``INSERTED`` and ``REMOVED``) :
 
 
