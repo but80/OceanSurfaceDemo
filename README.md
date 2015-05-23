@@ -1,6 +1,8 @@
+[日本語はこちら](http://qiita.com/but80/items/eed81a89ff23ee629bdd)#
+
 # Demonstration rippling Water4Advance (from the Unity Standard Assets) by a ComputeShader
 
-[日本語はこちら](http://qiita.com/but80/items/eed81a89ff23ee629bdd)
+![Screen shot](https://qiita-image-store.s3.amazonaws.com/0/34010/75a58e12-8e61-84be-2263-a893db8ccdff.png)
 
 ## How to run
 
