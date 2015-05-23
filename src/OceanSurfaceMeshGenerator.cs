@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 
 public class OceanSurfaceMeshGenerator : MonoBehaviour {
 
@@ -9,7 +9,7 @@ public class OceanSurfaceMeshGenerator : MonoBehaviour {
 	public int divisionZ = 100;
 	public float sizeX = 150f;
 	public float sizeZ = 100f;
-	public string saveAsAnAssetInPath = ""; // Example: "Assets/OceanSurface/OceanSurfaceMesh.asset"
+//	public string saveAsAnAssetInPath = ""; // Example: "Assets/OceanSurface/OceanSurfaceMesh.asset"
 	
 	void Start() {
 		int countX = divisionX + 1;
@@ -48,10 +48,10 @@ public class OceanSurfaceMeshGenerator : MonoBehaviour {
 		var filter = GetComponent<MeshFilter>();
 		filter.sharedMesh = mesh;
 
-		if (saveAsAnAssetInPath != "") {
-			AssetDatabase.CreateAsset(mesh, saveAsAnAssetInPath);
-			AssetDatabase.SaveAssets();
-		}
+//		if (saveAsAnAssetInPath != "") {
+//			AssetDatabase.CreateAsset(mesh, saveAsAnAssetInPath);
+//			AssetDatabase.SaveAssets();
+//		}
 	}
 
 }
